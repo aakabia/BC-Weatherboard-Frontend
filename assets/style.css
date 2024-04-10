@@ -1,0 +1,141 @@
+
+body{
+    background-color: rgb(244, 251, 227);
+}
+
+
+.weatherH{
+    height: 75px;
+     
+
+    background: linear-gradient(110deg, #fdcd3b 25%, #97c8f8 80%);
+    /* If you want to change angle then change the deg.*/
+
+}
+
+
+.borderB{
+    
+    height: 250px;
+    border-bottom: 1px black solid ;
+    margin-right: 15px;
+    
+    
+   
+    
+}
+
+main{
+   
+    border: 1px black solid ;
+}
+
+
+
+
+
+
+.inputArea{
+    
+    text-align: center;
+    width: 100%;
+    font-size: larger;
+    font-weight: bold;
+}
+
+
+
+.center{
+    text-align: center;
+    border-radius: 15px;
+    
+    
+}
+
+::placeholder{
+    color: black;
+
+}
+
+input:focus{
+    outline-color: black;
+}
+
+.btn{
+    margin-top: 20px;
+    background: linear-gradient(110deg, #fdcd3b 25%, #97c8f8 80%);
+    color: black;
+    cursor: pointer;
+}
+
+
+.margin{
+    margin-top: 25px;
+}
+
+.bold{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+
+.weatherSymbol{
+    margin-left: 20px;
+    margin-top: 2px;
+    font-size: 25px;
+}
+
+.weatherdata{
+   
+    height: 200px;
+    margin-top: 10px;
+    
+    
+    
+}
+.font{
+    font-size: 20px;
+}
+
+.black{
+    margin: 0;
+}
+
+.pink{  
+    height: 400px;
+}
+
+
+    
+/* End of header, main and aside input CSS*/
+
+.citiesBtn{
+    background: linear-gradient(110deg, #fdcd3b 25%, #97c8f8 80%);
+    color: black;
+    cursor: pointer;
+    height: 30px;
+    margin-top: 25px;
+    border-radius: 15px;
+
+}
+
+
+.weatherCard{
+    margin-top: 20px;
+    margin-left: 10px;
+    border: 1px solid black;
+    text-align: center;
+    background: linear-gradient(110deg, #fdcd3b 25%, #97c8f8 80%);
+
+}
+
+.cardWeather{
+    font-size: 50px;
+
+}
+
+.bottom{
+    margin-bottom: 100px;
+}
+
+/* end of second row css including the aside area for the button and section for the cards weather data.
