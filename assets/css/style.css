@@ -168,3 +168,4 @@ input:focus{
 }
 
 /* end of second row css including the aside area for the button and section for the cards weather data.
+I added media queries to help with some margin and display row at a certain screen size. 
