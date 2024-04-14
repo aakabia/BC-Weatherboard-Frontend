@@ -1,9 +1,49 @@
 let searchInput = document.querySelector("#citySearch");
 let searchButton = document.querySelector("#searchB");
+let cDate = document.querySelector("#date");
+let date2 = document.querySelector("#date2");
+let date3 = document.querySelector("#date3");
+let date4 = document.querySelector("#date4");
+let date5 = document.querySelector("#date5");
+let date6 = document.querySelector("#date6");
 const cityList = JSON.parse(localStorage.getItem("cities")) || [];
+
 
 searchButton.addEventListener("click", getValue);
 // Above, I set up my event listener and selected the input and button in my html.
+// Also, I selected all the date areas in my html for my displaydate function
+// Also, I recieved the items from local storage for a function later. 
+
+
+
+function displaydate() {
+  const now = dayjs().format("MM/DD/YYYY");
+  const day2 = dayjs().add(1, "day").format("MM/DD/YYYY");
+  const day3 = dayjs().add(2, "day").format("MM/DD/YYYY");
+  const day4 = dayjs().add(3, "day").format("MM/DD/YYYY");
+  const day5 = dayjs().add(4, "day").format("MM/DD/YYYY");
+  const day6 = dayjs().add(5, "day").format("MM/DD/YYYY");
+
+  console.log(now);
+  console.log(day2);
+  console.log(day3);
+  console.log(day4);
+  console.log(day5);
+  console.log(day6);
+
+  cDate.textContent = now;
+  date2.textContent = day2;
+  date3.textContent = day3;
+  date4.textContent = day4;
+  date5.textContent = day5;
+  date6.textContent = day6;
+}
+
+displaydate();
+// Above, I created a display date function withe the elements selected and using dayjs. 
+// I formatted the dates and assigned them in their correrct area.
+// last I called display date in order for the dates to always appear. 
+
 function getValue(event) {
   event.preventDefault();
   let searchInputValue = searchInput.value.trim();
@@ -81,7 +121,7 @@ function getLatLonData(cityUpper, stateUpper) {
               localStorage.setItem("cities", citiesSerialized);
 
               console.log(city);
-              //getWeatherInfo(lat,lon);
+              getWeatherInfo(lat, lon);
             }
             // Above, I log the data and save the object created from the data to local storage.
             if (!statefound) {
