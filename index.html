@@ -26,21 +26,23 @@
                 </label>
                 <input type="text" id="citySearch" placeholder="City,State"
                     class="p-2 bd-highlight bg-info bg-gradient bg-opacity-25 margin center" />
-                <button type="submit"  id="searchB" class="p-2 bd-highlight btn btn-primary margi btn">
+                <button type="submit" id="searchB" class="p-2 bd-highlight btn btn-primary margi btn">
                     Submit
                 </button>
             </aside>
 
             <main class="col-12 col-md-8">
                 <div class="d-flex flex-row justify-content-center">
-                    <h2>Atlanta <span> &#40; <span id="date"></span> &#41;</span></h2>
-                    <figure class="weatherSymbol">&#x1F31E;</figure>
+                    <h2>
+                        <span id="cityName"></span> <span> &#40; <span id="date"></span> &#41;</span>
+                    </h2>
+                    <figure class="weatherSymbol" id="weatherSymbol"></figure>
                 </div>
 
                 <div class="d-flex flex-column justify-content-between weatherdata">
-                    <h3 class="font">Temp: 76.2°F</h3>
-                    <h3 class="font">Wind: 8.43 MPH</h3>
-                    <h3 class="font">Humidity: 44%</h3>
+                    <h3 class="font" id="mainTemp"></h3>
+                    <h3 class="font" id="mainWind"></h3>
+                    <h3 class="font" id="mainHum"></h3>
                 </div>
             </main>
         </div>
@@ -58,92 +60,85 @@
                 <button type="submit" class="col-12 col-sm-11 col-md-12 citiesBtn btn-primary">
                     Denver
                 </button>
-
-
-
-
-
-
-
-
             </aside>
 
-            <div class="change col-12 col-md-8 col-lg-8  d-flex flex-column justify-content-start cardContainer">
+            <div class="change col-12 col-md-8 col-lg-8 d-flex flex-column justify-content-start cardContainer">
                 <div class="weatherCard col-11 col-sm-11 col-md-5 col-lg-2 d-flex flex-column justify-content-center">
                     <div>
                         <h4 id="date2"></h4>
-                        <figure class="cardWeather">&#x1F327;</figure>
+                        <figure class="cardWeather" id="cardIcon1"></figure>
                     </div>
 
                     <div>
-                        <h4 class="font">Temp: 76.2°F</h4>
-                        <h4 class="font">Wind: 8.43 MPH</h4>
-                        <h4 class="font">Humidity: 44%</h4>
+                        <h4 class="font" id="cardTemp1"></h4>
+                        <h4 class="font" id="cardWind1"></h4>
+                        <h4 class="font" id="cardHum1"></h4>
                     </div>
                 </div>
 
                 <div class="weatherCard col-11 col-sm-11 col-md-5 col-lg-2 d-flex flex-column justify-content-center">
                     <div>
                         <h4 id="date3"></h4>
-                        <figure class="cardWeather">&#x1F325;</figure>
+                        <figure class="cardWeather" id="cardIcon2"></figure>
                     </div>
 
                     <div>
-                        <h4 class="font">Temp: 76.2°F</h4>
-                        <h4 class="font">Wind: 8.43 MPH</h4>
-                        <h4 class="font">Humidity: 44%</h4>
+                        <h4 class="font" id="cardTemp2"></h4>
+                        <h4 class="font" id="cardWind2"></h4>
+                        <h4 class="font" id="cardHum2"></h4>
                     </div>
                 </div>
 
                 <div class="weatherCard col-11 col-sm-11 col-md-5 col-lg-2 d-flex flex-column justify-content-center">
                     <div>
                         <h4 id="date4"></h4>
-                        <figure class="cardWeather">&#x1F325;</figure>
+                        <figure class="cardWeather" id="cardIcon3"></figure>
                     </div>
 
                     <div>
-                        <h4 class="font">Temp: 76.2°F</h4>
-                        <h4 class="font">Wind: 8.43 MPH</h4>
-                        <h4 class="font">Humidity: 44%</h4>
+                        <h4 class="font" id="cardTemp3"></h4>
+                        <h4 class="font" id="cardWind3"></h4>
+                        <h4 class="font" id="cardHum3"></h4>
                     </div>
                 </div>
 
                 <div class="weatherCard col-11 col-sm-11 col-md-5 col-lg-2 d-flex flex-column justify-content-center">
                     <div>
                         <h4 id="date5"></h4>
-                        <figure class="cardWeather">&#x1F325;</figure>
+                        <figure class="cardWeather" id="cardIcon4"></figure>
                     </div>
 
                     <div>
-                        <h4 class="font">Temp: 76.2°F</h4>
-                        <h4 class="font">Wind: 8.43 MPH</h4>
-                        <h4 class="font">Humidity: 44%</h4>
+                        <h4 class="font" id="cardTemp4"></h4>
+                        <h4 class="font" id="cardWind4"></h4>
+                        <h4 class="font" id="cardHum4"></h4>
                     </div>
                 </div>
 
                 <div class="weatherCard col-11 col-sm-11 col-md-5 col-lg-2 d-flex flex-column justify-content-center">
                     <div>
                         <h4 id="date6"></h4>
-                        <figure class="cardWeather">&#x1F325;</figure>
+                        <figure class="cardWeather" id="cardIcon5"></figure>
                     </div>
 
                     <div>
-                        <h4 class="font">Temp: 76.2°F</h4>
-                        <h4 class="font">Wind: 8.43 MPH</h4>
-                        <h4 class="font">Humidity: 44%</h4>
+                        <h4 class="font" id="cardTemp5"></h4>
+                        <h4 class="font" id="cardWind5"></h4>
+                        <h4 class="font" id="cardHum5"></h4>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </section>
 
-    
-    
-
     <!-- End of second section, with aside area for buttons and cards for the page.  -->
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -153,14 +148,10 @@
     <!-- I decided to build the whole page first then plan and see how things stacked up together.-->
     <!-- Also, I wanted to visualoze the areas needed for JS.-->
     <!--Any color classes you see are associated with spacing of elements -->
+    
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+   
     <script src="assets/js/script.js"></script>
-
-
-
-
-
-
 </body>
 
 </html>
