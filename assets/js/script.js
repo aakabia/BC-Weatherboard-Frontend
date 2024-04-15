@@ -6,15 +6,21 @@ let date3 = document.querySelector("#date3");
 let date4 = document.querySelector("#date4");
 let date5 = document.querySelector("#date5");
 let date6 = document.querySelector("#date6");
+let mainTemp = document.querySelector("#mainTemp");
+let mainWind = document.querySelector("#mainWind");
+let mainHum = document.querySelector("#mainHum");
+let weatherSymbol = document.querySelector("#weatherSymbol");
+let cardIcon = document.querySelectorAll(".cardWeather");
+let cardBio = document.querySelectorAll(".font");
+console.log(cardIcon);
+console.log(cardBio);
+
 const cityList = JSON.parse(localStorage.getItem("cities")) || [];
 
-
-searchButton.addEventListener("click", getValue);
 // Above, I set up my event listener and selected the input and button in my html.
-// Also, I selected all the date areas in my html for my displaydate function
-// Also, I recieved the items from local storage for a function later. 
-
-
+// Also, I selected all the date areas in my html for my displaydate function.
+// Also, I selected all the areas which will display content for the weather.(lines 9-14)
+// Also, I recieved the items from local storage for a function later.
 
 function displaydate() {
   const now = dayjs().format("MM/DD/YYYY");
@@ -39,10 +45,8 @@ function displaydate() {
   date6.textContent = day6;
 }
 
-displaydate();
-// Above, I created a display date function withe the elements selected and using dayjs. 
+// Above, I created a display date function withe the elements selected and using dayjs.
 // I formatted the dates and assigned them in their correrct area.
-// last I called display date in order for the dates to always appear. 
 
 function getValue(event) {
   event.preventDefault();
@@ -112,6 +116,7 @@ function getLatLonData(cityUpper, stateUpper) {
                 state: stateUpper,
                 lati: lat,
                 long: lon,
+                rendered: "false",
               };
               // Above, I do a for loop for the data so it can match the exact output im looking for.
               cities.push(city);
@@ -119,6 +124,9 @@ function getLatLonData(cityUpper, stateUpper) {
               let citiesSerialized = JSON.stringify(cities);
 
               localStorage.setItem("cities", citiesSerialized);
+
+              let cityName = document.querySelector("#cityName");
+              cityName.textContent = city.name;
 
               console.log(city);
               getWeatherInfo(lat, lon);
@@ -136,18 +144,23 @@ function getLatLonData(cityUpper, stateUpper) {
     .catch(function (error) {
       alert("Unable to connect to server!");
     });
+
   // Above, is my alert if the api is not working.
 }
 
 function getWeatherInfo(lat, lon) {
-  const cityURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=1f84100edd7f6cddf642b63a288eb2cd`;
+  const cityURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutely&appid=1f84100edd7f6cddf642b63a288eb2cd`;
   // Above, I get the url to find precise location using lon and lat
+
+  let cities = cityList;
+  let cityName = document.querySelector("#cityName");
+
   fetch(cityURL)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data);
-          //displayWeatherData(data)
+          displayWeatherData(data);
         });
       }
     })
@@ -156,10 +169,250 @@ function getWeatherInfo(lat, lon) {
       alert("Unable to connect to server!");
     });
   // Above, is for if the api fails.
-}
 
-function displayWeatherData() {
+  /*for (i = 0; i <= cities.length; i++) {
+
+    console.log(cities[i]);
+    if (cities.length === 0) {
+      break;
+    } else if (cities[i]?.lati === lat && cities[i]?.long === lon) {
+      cityName.textContent = cities[i].name;
+      break
+    } else { 
+    }
+  }*/
+
+  cities.forEach((city) => {
+    if (city.lati === lat && city.long === lon) {
+      cityName.textContent = city.name;
+    }
+  });
+}
+// the commented out code above is for my refrence, it is for a bug I encountered due to looping incorrectly so values were not passed correctly.
+// solve1 = remove "=" sign in condition
+// solve2 = add conditional chaining with ?.
+// solve3 = for each loop
+
+function displayWeatherData(data) {
+  console.log(data.daily);
+  // Above, is where i consol =e log to make sure each property exists.
+  mainTemp.textContent = `Temp: ${data.current.temp}°F`;
+  mainWind.textContent = ` Wind: ${data.current.wind_speed} MPH`;
+  mainHum.textContent = `Humidity: ${data.current.humidity} %`;
+  // Above, is the text content for each part of the main area which is the current weather condition.
+  if (data.current.weather[0].description === "clear sky") {
+    weatherSymbol.textContent = "🌤";
+  } else if (data.current.weather[0].description === "few clouds") {
+    weatherSymbol.textContent = "🌥";
+  } else if (data.current.weather[0].description.includes("rain")) {
+    weatherSymbol.textContent = "🌧";
+  } else if (data.current.weather[0].description === "light rain") {
+    weatherSymbol.textContent = "🌧";
+  } else if (data.current.weather[0].description === "thunderstorm") {
+    weatherSymbol.textContent = "🌩";
+  } else if (data.current.weather[0].description.includes("snow")) {
+    weatherSymbol.textContent = "🌨";
+  } else {
+    weatherSymbol.textContent = "⛅";
+  }
+  //  Above is a if statment for the main area figure text content and its respective weather icon.
+  cardIcon.forEach((card) => {
+    const cardID = card.id;
+    console.log(cardID);
+
+    if (cardID === "cardIcon1") {
+      if (data.daily[0].weather[0].description === "clear sky") {
+        card.textContent = "🌤";
+      } else if (data.daily[0].weather[0].description === "few clouds") {
+        card.textContent = "🌥";
+      } else if (data.daily[0].weather[0].description.includes("rain")) {
+        card.textContent = "🌧";
+      } else if (data.daily[0].weather[0].description === "light rain") {
+        card.textContent = "🌧";
+      } else if (data.daily[0].weather[0].description === "thunderstorm") {
+        card.textContent = "🌩";
+      } else if (data.daily[0].weather[0].description.includes("snow")) {
+        card.textContent = "🌨";
+      } else {
+        card.textContent = "⛅";
+      }
+    } else if (cardID === "cardIcon2") {
+      if (data.daily[1].weather[0].description === "clear sky") {
+        card.textContent = "🌤";
+      } else if (data.daily[1].weather[0].description === "few clouds") {
+        card.textContent = "🌥";
+      } else if (data.daily[1].weather[0].description === "rain") {
+        card.textContent = "🌧";
+      } else if (data.daily[1].weather[0].description.includes("rain")) {
+        card.textContent = "🌧";
+      } else if (data.daily[1].weather[0].description === "thunderstorm") {
+        card.textContent = "🌩";
+      } else if (data.daily[1].weather[0].description.includes("snow")) {
+        card.textContent = "🌨";
+      } else {
+        card.textContent = "⛅";
+      }
+    } else if (cardID === "cardIcon3") {
+      if (data.daily[2].weather[0].description === "clear sky") {
+        card.textContent = "🌤";
+      } else if (data.daily[2].weather[0].description === "few clouds") {
+        card.textContent = "🌥";
+      } else if (data.daily[2].weather[0].description.includes("rain")) {
+        card.textContent = "🌧";
+      } else if (data.daily[2].weather[0].description === "light rain") {
+        card.textContent = "🌧";
+      } else if (data.daily[2].weather[0].description === "thunderstorm") {
+        card.textContent = "🌩";
+      } else if (data.daily[2].weather[0].description.includes("snow")) {
+        card.textContent = "🌨";
+      } else {
+        card.textContent = "⛅";
+      }
+    } else if (cardID === "cardIcon4") {
+      if (data.daily[3].weather[0].description === "clear sky") {
+        card.textContent = "🌤";
+      } else if (data.daily[3].weather[0].description === "few clouds") {
+        card.textContent = "🌥";
+      } else if (data.daily[3].weather[0].description.includes("rain")) {
+        card.textContent = "🌧";
+      } else if (data.daily[3].weather[0].description === "light rain") {
+        card.textContent = "🌧";
+      } else if (data.daily[3].weather[0].description === "thunderstorm") {
+        card.textContent = "🌩";
+      } else if (data.daily[3].weather[0].description.includes("snow")) {
+        card.textContent = "🌨";
+      } else {
+        card.textContent = "⛅";
+      }
+    } else if (cardID === "cardIcon5") {
+      if (data.daily[4].weather[0].description === "clear sky") {
+        card.textContent = "🌤";
+      } else if (data.daily[4].weather[0].description === "few clouds") {
+        card.textContent = "🌥";
+      } else if (data.daily[4].weather[0].description.includes("rain")) {
+        card.textContent = "🌧";
+      } else if (data.daily[4].weather[0].description === "light rain") {
+        card.textContent = "🌧";
+      } else if (data.daily[4].weather[0].description === "thunderstorm") {
+        card.textContent = "🌩";
+      } else if (data.daily[4].weather[0].description.includes("snow")) {
+        card.textContent = "🌨";
+      } else {
+        card.textContent = "⛅";
+      }
+    } else {
+    }
+  });
+
+  // Above is a for each loop for each card figure element and a if statment for each card figure area text contnet.
+
+  cardBio.forEach((eachCard) => {
+    const bioID = eachCard.id;
+    console.log(bioID);
+
+    if (bioID === "cardTemp1") {
+      eachCard.textContent = `Temp: ${data.daily[0].temp.day}°F`;
+    } else {
+    }
+
+    if (bioID === "cardTemp2") {
+      eachCard.textContent = `Temp: ${data.daily[1].temp.day}°F`;
+    } else {
+    }
+
+    if (bioID === "cardTemp3") {
+      eachCard.textContent = `Temp: ${data.daily[2].temp.day}°F`;
+    } else {
+    }
+
+    if (bioID === "cardTemp4") {
+      eachCard.textContent = `Temp: ${data.daily[3].temp.day}°F`;
+    } else {
+    }
+
+    if (bioID === "cardTemp5") {
+      eachCard.textContent = `Temp: ${data.daily[4].temp.day}°F`;
+    } else {
+    }
+
+    // Above is a for loop for the cards bio area and  if statments to set the content of each card temp area text content .
+
+    if (bioID === "cardWind1") {
+      eachCard.textContent = `Wind: ${data.daily[0].wind_speed} MPH`;
+    } else {
+    }
+
+    if (bioID === "cardWind2") {
+      eachCard.textContent = `Wind: ${data.daily[1].wind_speed} MPH`;
+    } else {
+    }
+
+    if (bioID === "cardWind3") {
+      eachCard.textContent = `Wind: ${data.daily[2].wind_speed} MPH`;
+    } else {
+    }
+
+    if (bioID === "cardWind4") {
+      eachCard.textContent = `Wind: ${data.daily[3].wind_speed} MPH`;
+    } else {
+    }
+
+    if (bioID === "cardWind5") {
+      eachCard.textContent = `Wind: ${data.daily[4].wind_speed} MPH`;
+    } else {
+    }
+
+    // Above are  if statments to set the content of each card wind area text content.
+
+    if (bioID === "cardHum1") {
+      eachCard.textContent = `Humidity: ${data.daily[0].humidity} %`;
+    } else {
+    }
+
+    if (bioID === "cardHum2") {
+      eachCard.textContent = `Humidity: ${data.daily[1].humidity} %`;
+    } else {
+    }
+
+    if (bioID === "cardHum3") {
+      eachCard.textContent = `Humidity: ${data.daily[2].humidity} %`;
+    } else {
+    }
+
+    if (bioID === "cardHum4") {
+      eachCard.textContent = `Humidity: ${data.daily[3].humidity} %`;
+    } else {
+    }
+
+    if (bioID === "cardHum5") {
+      eachCard.textContent = `Humidity: ${data.daily[4].humidity} %`;
+    } else {
+    }
+
+    // Above are  if statments to set the content of each card Humidity text content.
+  });
+
   console.log("hello");
 }
 
-displayWeatherData;
+function renderlastSearch() {
+  let cities = cityList;
+
+  console.log(cities);
+
+  if (cities.length > 0) {
+    const lastItem = cities[cities.length - 1];
+    console.log(lastItem.long);
+    getWeatherInfo(lastItem.lati, lastItem.long);
+  } else {
+    console.log("No cities in the list");
+  }
+}
+
+$(document).ready(function () {
+  // Handler for .ready() called.
+  renderlastSearch();
+  // I called render last search first.
+  displaydate();
+  searchButton.addEventListener("click", getValue);
+});
