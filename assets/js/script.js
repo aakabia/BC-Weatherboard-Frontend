@@ -246,15 +246,6 @@ function getWeatherInfo(lat, lon, cityUpper, stateUpper) {
 
 
 
-
-
-
-
-
-
-
-
-
 function displayWeatherData(data) {
   console.log(data.daily);
   // Above, is where i consol =e log to make sure each property exists.
