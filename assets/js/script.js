@@ -93,7 +93,7 @@ function getValue(event) {
 }
 
 function getLatLonData(cityUpper, stateUpper) {
-  const apiURL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityUpper}&limit=7&appid=1f84100edd7f6cddf642b63a288eb2cd`;
+  const apiURL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityUpper}&limit=7&appid=1f84100edd7f6cddf642b63a288eb2cd`;
   let statefound = false;
   // Above, I get the url  for the lon and lat from api given on page.
   fetch(apiURL)
